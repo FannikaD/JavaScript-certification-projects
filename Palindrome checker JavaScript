@@ -1,0 +1,25 @@
+const submitBtn = document.getElementById('check-btn');
+const words = document.getElementById("text-input");
+const results = document.getElementById("result");
+const resultText = document.getElementById("resultText");
+
+const checkWord = (input) => {
+  const inputWord = input;
+
+  if (input === ''){
+    alert("Please input a value");
+    return;
+  }
+
+  const lower = input.replace(/[^A-Za-z0-9]/gi, '').toLowerCase();
+  let conclusion = `${inputWord} ${lower===[...lower].reverse().join('')? 'is': 'is not'} a palindrome.`;
+
+  resultText.innerText = conclusion;
+
+}
+
+submitBtn.addEventListener("click", () => {
+  resultText.innerText='';
+  checkWord(words.value);
+  words.value='';
+});
