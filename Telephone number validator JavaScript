@@ -1,0 +1,35 @@
+const input = document.getElementById("user-input");
+const check = document.getElementById("check-btn");
+const clear = document.getElementById("clear-btn");
+
+const checkNumber = (num) => {
+  if (num===""){
+    alert("Please provide a phone number");
+    return;
+  }
+  const country = `^(1\\s?)?`;
+  const area = `(\\([0-9]{3}\\)|[0-9]{3})`;
+  const numbers = '[0-9]{3}[\\s\\-]?[0-9]{4}$';
+  const filler = `[\\s\\-]?`;
+  const validRegex= new RegExp(
+    `${country}${area}${filler}${numbers}`
+  );
+  document.getElementById("results-div").textContent=`${validRegex.test(num) ? 'Valid' : 'Invalid'} US number: ${num}`
+}
+
+check.addEventListener("click", ()=>{
+  checkNumber(input.value);
+  input.value='';
+})
+
+input.addEventListener("keydown", e => {
+  if (e.key==="Enter"){
+    checkNumber(input.value);
+    input.value="";
+  }
+})
+
+clear.addEventListener("click", ()=>{
+  input.value="";
+  document.getElementById("results-div").textContent='';
+})
