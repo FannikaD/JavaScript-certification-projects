@@ -1,0 +1,12 @@
+*{
+  display:center;
+  width:200px;
+  background-color:rgb(100,0,200);
+}
+#user-input{
+  margin-left:60%;
+  margin-top:60%;
+}
+#check-btn,#clear-btn{
+  margin-left:62%;
+}
