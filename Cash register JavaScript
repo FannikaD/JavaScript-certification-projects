@@ -1,0 +1,168 @@
+let price = 19.5;
+let cid = [
+  ['PENNY', 0.5],
+  ['NICKEL', 0],
+  ['DIME', 0],
+  ['QUARTER', 0],
+  ['ONE', 1],
+  ['FIVE', 0],
+  ['TEN', 0],
+  ['TWENTY', 0],
+  ['ONE HUNDRED', 0]
+];
+const money = document.getElementById("cash");
+const purchaseBtn = document.getElementById("purchase-btn");
+const changeText = document.getElementById("change-due");
+
+const makeChange=()=>{
+  let change=money.value-price;
+  if (change/100>=1){
+    changeText.textContent+= 'ONE HUNDRED: $100 ';
+    cid[8][1]=0;
+    change-=100;
+    change=Math.round((change) * 100) / 100;
+  }
+  if ((change/20)>=1) {
+    let twenties = change-(change%20);
+    if (twenties<=cid[7][1]) {
+      changeText.textContent+=`TWENTY: $${twenties} `;
+      cid[7][1]-=twenties;
+      change-=twenties;
+      change=Math.round((change) * 100) / 100;
+    }else if (twenties>cid[7][1]) {
+      twenties=cid[7][1];
+      changeText.textContent+=`TWENTY: $${twenties} `;
+      cid[7][1]=0;
+      change-=twenties;
+      change=Math.round((change) * 100) / 100;
+    }
+  }
+  if ((change/10)>=1) {
+    let tens = change-(change%10);
+    if (tens<=cid[6][1]) {
+      changeText.textContent+=`TEN: $${tens} `;
+      cid[6][1]-=tens;
+      change-=tens;
+      change=Math.round((change) * 100) / 100;
+    }else if (tens>cid[6][1]) {
+      tens=cid[6][1];
+      changeText.textContent+=`TEN: $${tens} `;
+      cid[6][1]-=tens;
+      change-=tens;
+      change=Math.round((change) * 100) / 100;
+    }
+  }
+  if ((change/5)>=1) {
+    let fives = change-(change%5);
+    if (fives<=cid[5][1]){
+      changeText.textContent+=`FIVE: $${fives} `;
+      cid[5][1]-=fives;
+      change-=fives;
+      change=Math.round((change) * 100) / 100;
+    } else if (fives>cid[5][1]) {
+      fives=cid[5][1];
+      changeText.textContent+=`FIVE: $${fives} `;
+      cid[5][1]-=fives;
+      change-=fives;
+      change=Math.round((change) * 100) / 100;
+    }
+  }
+  if ((change/1)>=1) {
+    let ones = change-(change%1);
+    if (ones<=cid[4][1]) {
+      changeText.textContent+=`ONE: $${ones} `;
+      cid[4][1]-=ones;
+      change-=ones;
+      change=Math.round((change) * 100) / 100;
+    } else if (ones>cid[4][1]) {
+      ones = cid[4][1];
+      changeText.textContent+=`ONE: $${ones} `;
+      cid[4][1]-=ones;
+      change-=ones;
+      change=Math.round((change) * 100) / 100;
+    }
+  }
+  if ((change/0.25)>=1 && cid[3][1]>0) {
+    let quarter = change-(change%0.25);
+    if (quarter<=cid[3][1]) {
+      changeText.textContent+=`QUARTER: $${quarter} `;
+      cid[3][1]-=quarter;
+      change-=quarter;
+      change=Math.round((change) * 100) / 100;
+    } else if (quarter>cid[3][1]) {
+      quarter = cid[3][1];
+      changeText.textContent+=`QUARTER: $${quarter} `;
+      cid[3][1]-=quarter;
+      change-=quarter;
+      change=Math.round((change) * 100) / 100;
+    }
+  }
+  if ((change/0.1)>=1 && cid[2][1]>0) {
+    let dimes = change-(change%0.1);
+    if (dimes<=cid[2][1]){
+      changeText.textContent+=`DIME: $${dimes} `;
+      cid[2][1]-=dimes;
+      change-=dimes;
+      change=Math.round((change) * 100) / 100;
+    } else if (dimes>cid[2][1]) {
+      dimes=cid[2][1];
+      changeText.textContent+=`DIME: $${dimes} `;
+      cid[2][1]-=dimes;
+      change-=dimes;
+      change=Math.round((change) * 100) / 100;
+    }
+  }
+  if ((change/0.05)>=1 && cid[1][1]>0) {
+    let nickels = change-(change%0.05);
+    if (nickels<=cid[1][1]){
+      changeText.textContent+=`NICKEL: $${nickels} `;
+      cid[1][1]-=nickels;
+      change-=nickels;
+      change=Math.round((change) * 100) / 100;
+    }else if (nickels>cid[1][1]){
+      nickels=cid[1][1];
+      changeText.textContent+=`NICKEL: $${nickels} `;
+      cid[1][1]-=nickels;
+      change-=nickels;
+      change=Math.round((change) * 100) / 100;
+    }
+  }
+  if ((change/0.01)>=1) {
+    let pennies = change;
+    if (pennies<=cid[0][1]){
+      changeText.textContent+=`PENNY: $${pennies} `;
+      cid[0][1]-=pennies;
+      change-=pennies;
+      change=Math.round((change) * 100) / 100;
+    }else if (pennies>cid[0][1]) {
+      pennies=cid[0][1];
+      changeText.textContent+=`PENNY: $${pennies} `;
+      cid[0][1]-=pennies;
+      change-=pennies;
+      change=Math.round((change) * 100) / 100;
+    }
+  }
+  if (change>0){
+    changeText.textContent="Status: INSUFFICIENT_FUNDS";
+  }
+}
+
+purchaseBtn.addEventListener('click',()=>{
+  let cashSum=Math.round(((cid[0][1])+(cid[1][1])+(cid[2][1])+(cid[3][1])+(cid[4][1])+(cid[5][1])+(cid[6][1])+(cid[7][1])+(cid[8][1]))*100)/100;
+  if (price>money.value) {
+    alert("Customer does not have enough money to purchase the item");
+  }else if (price==money.value) {
+    changeText.textContent="No change due - customer paid with exact cash";
+  }else if (price<money.value) {
+    if (cashSum<(money.value-price)){
+      changeText.textContent='Status: INSUFFICIENT_FUNDS'
+    }else if (cashSum==(money.value-price)){
+      changeText.textContent='Status: CLOSED '
+      makeChange();
+    }else{
+      console.log(cashSum)
+      changeText.textContent=`Status: OPEN `;
+      makeChange();
+    }
+  }
+})
